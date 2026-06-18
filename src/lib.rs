@@ -18,6 +18,7 @@ mod externed {
         pub fn is_online() -> bool;
         pub fn csk_collection_version() -> *const crate::Version;
         pub fn add_narration_characall_entry(string_ptr: *mut i8) -> bool;
+        pub fn add_narration_characall_demon(string_ptr: *mut i8) -> bool;
         pub fn set_fighter_jingle(chara_id: u64, string_ptr: *mut i8);
         pub fn load_ui_file(ui_path: u64);
     }
@@ -155,6 +156,15 @@ pub fn add_narration_characall_entry(entry: &str) -> bool {
             .expect(&format!("Failed converting {} to CString!", entry))
             .into_raw();
         externed::add_narration_characall_entry(ptr as _)
+    }
+}
+
+pub fn add_narration_characall_demon(entry: &str) -> bool {
+    unsafe {
+        let ptr = std::ffi::CString::new(entry)
+            .expect(&format!("Failed converting {} to CString!", entry))
+            .into_raw();
+        externed::add_narration_characall_demon(ptr as _)
     }
 }
 
